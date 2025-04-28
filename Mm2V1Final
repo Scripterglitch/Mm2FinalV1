@@ -1,175 +1,193 @@
-loadstring(game:HttpGet("https://raw.gi--// Mm2Pro | Made by SpiderGlitch | Owner: ZackEsmeroFox1
---// V1 - Full Features Script
+-- Mm2Pro | made by SpiderGlitch | owner: ZackEsmeroFox1
 
-local ownerUserId = 3593217397 -- Your Roblox ID
-local MarketplaceService = game:GetService("MarketplaceService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+local Player = game.Players.LocalPlayer
+local UserId = Player.UserId
 
--- UI Library
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local ProPassId = 1180773455 -- Your Pro gamepass ID
+local OwnerId = 3593217397 -- Your UserId (free pro)
 
-local Window = OrionLib:MakeWindow({
-    Name = "MM2Pro V1",
-    HidePremium = false,
-    SaveConfig = true,
-    ConfigFolder = "MM2ProConfig",
-    IntroEnabled = true,
-    IntroText = "Made by SpiderGlitch | Owner: ZackEsmeroFox1",
-})
+local StarterGui = game:GetService("StarterGui")
 
--- Variables
-local espEnabled = true
-local espType = "Highlight"
-local gunTrapEsp = true
+-- GUI Create
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "Mm2Pro"
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = ScreenGui
+MainFrame.Size = UDim2.new(0, 450, 0, 300)
+MainFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
+MainFrame.BackgroundColor3 = Color3.fromRGB(40,40,40)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = MainFrame
+
+-- Tabs
+local Tabs = Instance.new("Folder", MainFrame)
+Tabs.Name = "Tabs"
+
+local TabFrame = Instance.new("Frame")
+TabFrame.Parent = Tabs
+TabFrame.Size = UDim2.new(0, 450, 0, 30)
+TabFrame.Position = UDim2.new(0, 0, 0, 0)
+TabFrame.BackgroundColor3 = Color3.fromRGB(60,60,60)
+TabFrame.BorderSizePixel = 0
+
+local FreeTab = Instance.new("TextButton")
+FreeTab.Parent = TabFrame
+FreeTab.Size = UDim2.new(0, 225, 0, 30)
+FreeTab.Position = UDim2.new(0,0,0,0)
+FreeTab.Text = "Free Features"
+FreeTab.BackgroundColor3 = Color3.fromRGB(80,80,80)
+FreeTab.TextColor3 = Color3.new(1,1,1)
+FreeTab.Font = Enum.Font.Gotham
+FreeTab.TextSize = 14
+
+local ProTab = Instance.new("TextButton")
+ProTab.Parent = TabFrame
+ProTab.Size = UDim2.new(0, 225, 0, 30)
+ProTab.Position = UDim2.new(0,225,0,0)
+ProTab.Text = "Pro Features"
+ProTab.BackgroundColor3 = Color3.fromRGB(80,80,80)
+ProTab.TextColor3 = Color3.new(1,1,1)
+ProTab.Font = Enum.Font.Gotham
+ProTab.TextSize = 14
+
+-- Pages
+local Pages = Instance.new("Folder", MainFrame)
+Pages.Name = "Pages"
+
+local FreePage = Instance.new("Frame")
+FreePage.Parent = Pages
+FreePage.Size = UDim2.new(0,450,0,270)
+FreePage.Position = UDim2.new(0,0,0,30)
+FreePage.BackgroundTransparency = 1
+
+local ProPage = Instance.new("Frame")
+ProPage.Parent = Pages
+ProPage.Size = UDim2.new(0,450,0,270)
+ProPage.Position = UDim2.new(0,0,0,30)
+ProPage.BackgroundTransparency = 1
+ProPage.Visible = false
+
+-- Free Features
+local EspToggle = Instance.new("TextButton")
+EspToggle.Parent = FreePage
+EspToggle.Position = UDim2.new(0, 10, 0, 10)
+EspToggle.Size = UDim2.new(0, 200, 0, 30)
+EspToggle.BackgroundColor3 = Color3.fromRGB(70,70,70)
+EspToggle.TextColor3 = Color3.new(1,1,1)
+EspToggle.Font = Enum.Font.Gotham
+EspToggle.Text = "Toggle Player ESP"
+
+local ShotMurd = Instance.new("TextButton")
+ShotMurd.Parent = FreePage
+ShotMurd.Position = UDim2.new(0, 10, 0, 50)
+ShotMurd.Size = UDim2.new(0, 200, 0, 30)
+ShotMurd.BackgroundColor3 = Color3.fromRGB(70,70,70)
+ShotMurd.TextColor3 = Color3.new(1,1,1)
+ShotMurd.Font = Enum.Font.Gotham
+ShotMurd.Text = "Auto Shot Murderer"
+
+local ThrowKnife = Instance.new("TextButton")
+ThrowKnife.Parent = FreePage
+ThrowKnife.Position = UDim2.new(0, 10, 0, 90)
+ThrowKnife.Size = UDim2.new(0, 200, 0, 30)
+ThrowKnife.BackgroundColor3 = Color3.fromRGB(70,70,70)
+ThrowKnife.TextColor3 = Color3.new(1,1,1)
+ThrowKnife.Font = Enum.Font.Gotham
+ThrowKnife.Text = "Auto Throw Knife"
+
+local GunESP = Instance.new("TextButton")
+GunESP.Parent = FreePage
+GunESP.Position = UDim2.new(0, 10, 0, 130)
+GunESP.Size = UDim2.new(0, 200, 0, 30)
+GunESP.BackgroundColor3 = Color3.fromRGB(70,70,70)
+GunESP.TextColor3 = Color3.new(1,1,1)
+GunESP.Font = Enum.Font.Gotham
+GunESP.Text = "Toggle Gun/Trap ESP"
+
+-- Pro Features
+local SharpShot = Instance.new("TextButton")
+SharpShot.Parent = ProPage
+SharpShot.Position = UDim2.new(0, 10, 0, 10)
+SharpShot.Size = UDim2.new(0, 200, 0, 30)
+SharpShot.BackgroundColor3 = Color3.fromRGB(90,60,60)
+SharpShot.TextColor3 = Color3.new(1,1,1)
+SharpShot.Font = Enum.Font.Gotham
+SharpShot.Text = "Sharp Shot Murderer"
+
+local SharpThrow = Instance.new("TextButton")
+SharpThrow.Parent = ProPage
+SharpThrow.Position = UDim2.new(0, 10, 0, 50)
+SharpThrow.Size = UDim2.new(0, 200, 0, 30)
+SharpThrow.BackgroundColor3 = Color3.fromRGB(90,60,60)
+SharpThrow.TextColor3 = Color3.new(1,1,1)
+SharpThrow.Font = Enum.Font.Gotham
+SharpThrow.Text = "Sharp Throw Knife"
 
 -- Functions
-function notify(text)
-    OrionLib:MakeNotification({
-        Name = "MM2Pro",
-        Content = text,
-        Image = "rbxassetid://4483345998",
-        Time = 3
+local function Notify(text)
+    StarterGui:SetCore("SendNotification", {
+        Title = "Mm2Pro";
+        Text = text;
+        Duration = 4;
     })
 end
 
-function createESP(player)
-    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-        for _, v in pairs(player.Character:GetChildren()) do
-            if v:IsA("Highlight") or v:IsA("BoxHandleAdornment") then
-                v:Destroy()
-            end
-        end
-        if espType == "Highlight" or espType == "Both" then
-            local highlight = Instance.new("Highlight", player.Character)
-            highlight.FillColor = Color3.fromRGB(255, 255, 255)
-            highlight.OutlineColor = Color3.fromRGB(0, 0, 0)
-        end
-        if espType == "Box" or espType == "Both" then
-            local box = Instance.new("BoxHandleAdornment")
-            box.Adornee = player.Character:FindFirstChild("HumanoidRootPart")
-            box.Size = Vector3.new(6, 7, 3)
-            box.Color3 = Color3.fromRGB(255, 255, 255)
-            box.AlwaysOnTop = true
-            box.Parent = player.Character
+FreeTab.MouseButton1Click:Connect(function()
+    FreePage.Visible = true
+    ProPage.Visible = false
+end)
+
+ProTab.MouseButton1Click:Connect(function()
+    if UserId == OwnerId then
+        ProPage.Visible = true
+        FreePage.Visible = false
+    else
+        if not game:GetService("MarketplaceService"):UserOwnsGamePassAsync(UserId, ProPassId) then
+            Notify("Buy Pro Pass (100 Robux) to Unlock Pro Features.")
+        else
+            ProPage.Visible = true
+            FreePage.Visible = false
         end
     end
-end
+end)
 
-function setupAllESP()
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer then
-            createESP(player)
-        end
-    end
-end
+-- Functions for Buttons
+EspToggle.MouseButton1Click:Connect(function()
+    Notify("ESP Activated!")
+    -- Your ESP Code Here
+end)
 
-function toggleGunTrapESP(state)
-    gunTrapEsp = state
-end
+ShotMurd.MouseButton1Click:Connect(function()
+    Notify("Auto Shooting Murderer!")
+    -- Your Auto Shoot Code Here
+end)
 
-function buyPro()
-    MarketplaceService:PromptProductPurchase(LocalPlayer, 1180773455) -- Your real Gamepass ID
-end
+ThrowKnife.MouseButton1Click:Connect(function()
+    Notify("Auto Throwing Knife!")
+    -- Your Auto Throw Code Here
+end)
 
--- GUI Tabs
-local FreeTab = Window:MakeTab({
-    Name = "Free",
-    Icon = "rbxassetid://6034977836",
-    PremiumOnly = false
-})
+GunESP.MouseButton1Click:Connect(function()
+    Notify("Gun and Trap ESP Activated!")
+    -- Your Gun/Trap ESP Code Here
+end)
 
-local ProTab = Window:MakeTab({
-    Name = "Pro",
-    Icon = "rbxassetid://6034977836",
-    PremiumOnly = false
-})
+SharpShot.MouseButton1Click:Connect(function()
+    Notify("Sharp Shot Activated!")
+    -- Your SharpShot Code Here
+end)
 
--- Free Tab Content
-FreeTab:AddLabel("FREE FEATURES")
+SharpThrow.MouseButton1Click:Connect(function()
+    Notify("Sharp Throw Activated!")
+    -- Your SharpThrow Code Here
+end)
 
-FreeTab:AddDropdown({
-    Name = "ESP Type",
-    Default = "Highlight",
-    Options = {"Highlight", "Box", "Both", "None"},
-    Callback = function(Value)
-        espType = Value
-        setupAllESP()
-    end
-})
-
-FreeTab:AddToggle({
-    Name = "ESP Gun Drops + Traps",
-    Default = true,
-    Callback = function(Value)
-        toggleGunTrapESP(Value)
-    end
-})
-
-FreeTab:AddButton({
-    Name = "Shot Murderer / Throw Knife",
-    Callback = function()
-        notify("Locking Target...")
-        -- Your aimbot or shot logic here
-    end
-})
-
-FreeTab:AddButton({
-    Name = "Round Timer",
-    Callback = function()
-        notify("Round Time Left: Example 120s")
-    end
-})
-
--- Pro Tab Content
-ProTab:AddLabel("PRO FEATURES")
-
-if LocalPlayer.UserId ~= ownerUserId then
-    ProTab:AddButton({
-        Name = "Buy Pro (100 Robux)",
-        Callback = function()
-            buyPro()
-        end
-    })
-else
-    ProTab:AddButton({
-        Name = "Sharp Shot",
-        Callback = function()
-            notify("Sharp Shot Activated!")
-            -- sharp shot logic
-        end
-    })
-
-    ProTab:AddButton({
-        Name = "Sharp Throw Knife",
-        Callback = function()
-            notify("Sharp Throw Activated!")
-            -- sharp throw logic
-        end
-    })
-
-    ProTab:AddToggle({
-        Name = "Speed Glitch",
-        Default = false,
-        Callback = function(Value)
-            if Value then
-                notify("Speed Glitch ON")
-            else
-                notify("Speed Glitch OFF")
-            end
-        end
-    })
-
-    ProTab:AddToggle({
-        Name = "God Mode",
-        Default = false,
-        Callback = function(Value)
-            if Value then
-                notify("God Mode Enabled")
-            else
-                notify("God Mode Disabled")
-            end
-        end
-    })
-end
-OrionLib:Init()
+-- On Execute
+Notify("Loaded Mm2Pro | made by SpiderGlitch | Owner: ZackEsmeroFox1")
